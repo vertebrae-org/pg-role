@@ -1,0 +1,39 @@
+{
+  "name": "pg-role",
+  "version": "0.0.1",
+  "description": "opinionated pg abstraction focused on role based connection pools",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "docs-serve": "documentation serve --watch index.js",
+    "docs-build": "documentation build index.js -f html -o docs",
+    "postdocs-build": "documentation readme index.js -s documentation",
+    "test": "mocha --exit --bail"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vertebrae-org/pg-role.git"
+  },
+  "keywords": [
+    "pg",
+    "connection",
+    "pools"
+  ],
+  "author": "Rob Higgins <rob@vertebrae.com>",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/vertebrae-org/pg-role/issues"
+  },
+  "homepage": "https://github.com/vertebrae-org/pg-role#readme",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "pg": "^7.4.3",
+    "pg-escape": "^0.2.0"
+  },
+  "devDependencies": {
+    "documentation": "^8.1.2",
+    "mocha": "^5.2.0"
+  }
+}
