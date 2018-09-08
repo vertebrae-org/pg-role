@@ -1,7 +1,7 @@
 {
   "name": "pg-role",
-  "version": "0.0.1",
-  "description": "opinionated pg abstraction focused on role based connection pools",
+  "version": "0.0.2",
+  "description": "opinionated pg abstraction",
   "main": "index.js",
   "directories": {
     "lib": "lib"
@@ -9,8 +9,8 @@
   "scripts": {
     "docs-serve": "documentation serve --watch index.js",
     "docs-build": "documentation build index.js -f html -o docs",
-    "postdocs-build": "documentation readme index.js -s documentation",
-    "test": "mocha --exit --bail"
+    "postdocs-build": "documentation readme index.js -s Methods",
+    "test": "clear && mocha --exit --bail"
   },
   "repository": {
     "type": "git",

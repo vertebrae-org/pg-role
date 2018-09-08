@@ -33,14 +33,14 @@ describe('SCHEMA', function () {
                 deleted_at TIMESTAMP,
                 deleted_by INT
             );
-            INSERT INTO employees (email) values
-                ('${testUserA}');
-            INSERT INTO test.employees (email) values
-                ('${testUserA}');
         `);
     });
 
     it('should select public.employees', async function () {
+        await query(`
+            INSERT INTO employees (email) values
+                ('${testUserA}');
+        `);
         const {rows} = await select({
             model: 'employees'
         });
@@ -48,6 +48,10 @@ describe('SCHEMA', function () {
     });
 
     it('should select test.employees', async function () {
+        await query(`
+            INSERT INTO test.employees (email) values
+                ('${testUserA}');
+        `);
         const {rows} = await select({
             schema,
             model: 'employees'

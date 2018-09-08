@@ -1,5 +1,5 @@
 const assert = require('assert');
-const {db,select,insert,query} = require('..');
+const {db,insert,query} = require('..');
 
 const testUserA = 'a@test.com';
 const testUserB = 'b@test.com';
@@ -7,7 +7,7 @@ const testUserC = 'c@test.com';
 
 describe('INSERT', function () {
 
-    before(async function () {
+    beforeEach(async function () {
         await query(`
             DROP SCHEMA IF EXISTS public cascade;
             CREATE SCHEMA public;
@@ -26,38 +26,37 @@ describe('INSERT', function () {
 
     it('should insert employees', async function () {
         await insert({
-            role: 'test',
             model: 'employees',
             set: {
                 email: testUserA
             }
         });
         await insert({
-            role: 'test',
             model: 'employees',
             set: {
                 email: testUserB
             }
         });
         await insert({
-            role: 'test',
             model: 'employees',
             set: {
                 email: testUserC
             }
         });
-        const employees = await select({
-            role: 'test',
-            model: 'employees'
-        });
-        assert(testUserA, employees.rows[0] && employees.rows[0].email);
-        assert(testUserB, employees.rows[1] && employees.rows[1].email);
-        assert(testUserC, employees.rows[2] && employees.rows[2].email);
+        const {rows} = await query(`
+            select email from employees;
+        `);
+        assert(testUserA, rows[0] && rows[0].email);
+        assert(testUserB, rows[1] && rows[1].email);
+        assert(testUserC, rows[2] && rows[2].email);
     });
 
     it('should fail to insert due to unique constraint', async function () {
+        await query(`
+            INSERT INTO employees (email) values
+                ('${testUserA}');
+        `);
         const didFail = await insert({
-            role: 'test',
             model: 'employees',
             set: {
                 email: testUserA
@@ -67,5 +66,6 @@ describe('INSERT', function () {
         .catch(e => {return true;});
         assert(didFail);
     });
+
 });
 

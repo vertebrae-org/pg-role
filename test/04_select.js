@@ -1,13 +1,15 @@
 const assert = require('assert');
-const {db,select,remove,query} = require('..');
+const {db,select,query} = require('..');
 
+const role = 'test';
+const schema = 'test';
 const testUserA = 'a@test.com';
 const testUserB = 'b@test.com';
 const testUserC = 'c@test.com';
 
-describe('DELETE', function () {
+describe('SELECT', function () {
 
-    before(async function () {
+    beforeEach(async function () {
         await query(`
             DROP SCHEMA IF EXISTS public cascade;
             CREATE SCHEMA public;
@@ -28,46 +30,32 @@ describe('DELETE', function () {
         `);
     });
 
-    it('should delete employee A', async function () {
-        await remove({
-            model: 'employees',
-            id: 1,
-        });
+    it('should select employees', async function () {
         const {rows} = await select({
-            id: 1,
             model: 'employees'
         });
-        assert.equal(rows.length, 0);
+        assert.equal(testUserA, rows[0] && rows[0].email);
+        assert.equal(testUserB, rows[1] && rows[1].email);
+        assert.equal(testUserC, rows[2] && rows[2].email);
     });
 
-    it('should delete employee B', async function () {
-        await remove({
-            model: 'employees',
-            id: 2,
-            set: {
-                email: 'b' + testUserB
-            }
-        });
+    it('should select employee by id', async function () {
         const {rows} = await select({
-            id: 2,
-            model: 'employees'
+            model: 'employees',
+            id: 1
         });
-        assert.equal(rows.length, 0);
+        assert.equal(testUserA, rows[0] && rows[0].email);
     });
 
-    it('should delete employee C', async function () {
-        await remove({
-            model: 'employees',
-            id: 3,
-            set: {
-                email: 'c' + testUserC
-            }
-        });
+    it('should select employee by email', async function () {
         const {rows} = await select({
-            id: 3,
-            model: 'employees'
+            model: 'employees',
+            where: {
+                email: testUserA
+            },
+            limit: 1
         });
-        assert.equal(rows.length, 0);
+        assert.equal(testUserA, rows[0] && rows[0].email);
     });
 
 });
