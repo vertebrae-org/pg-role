@@ -18,6 +18,28 @@ Methods select, insert, update, remove, and restore use these columns to keep tr
 
 By default, the select function will filter out any rows with a deleted_at timestamp. If you do want to see deleted rows add 'deleted: true' to the select options object.
 
+### Roles?
+
+Another opinionated feature of this package is role pools configured by enviornment variables.  The module uses dotenv to populate env settings when you include a .env file in your project root folder.  The default pool uses env vars:
+
+* 'PGHOST',
+* 'PGPORT',
+* 'PGDATABASE',
+* 'PGUSER',
+* 'PGPASSWORD'
+
+Specifying one or more pool names within the db.conect method will connect multiple pools.  The connection will expect vars:
+
+* 'PG_${pool}_HOST',
+* 'PG_${pool}_PORT',
+* 'PG_${pool}_DATABASE',
+* 'PG_${pool}_USER',
+* 'PG_${pool}_PASSWORD'
+
+### Async
+
+This library is built with promises and expects you to await method results.  While it is a good idea to connect your pools when the app starts up, you don't have to.  If you call any method without specifying a pool connection to use, it will use the default pool.  If the default or specified connection pool has not yet been connected, it will wait until it connects, then call the method.  Pools are cached in the db.pools object.
+
 ## Install
 
     npm install --save pg-role

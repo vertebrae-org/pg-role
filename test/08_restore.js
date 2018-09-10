@@ -28,7 +28,7 @@ describe('RESTORE', function () {
     it('should restore employee A', async function () {
         await restore({
             model: 'employees',
-            where: { email: testUserA }
+            where: {email: testUserA}
         });
         const {rows} = await query(`
             select email from employees where email = '${testUserA}' and deleted_at is null;

@@ -25,11 +25,9 @@ describe('MODEL', function () {
         `);
     });
 
-    it('should create and find employee A', async function () {
+    it('should create and find employee', async function () {
         const Employee = new Model('employees');
-        await Employee.create({
-            email: testUserA
-        });
+        await Employee.create({email: testUserA});
         const {rows} = await query(`
             select email from employees where email = '${testUserA}';
         `);
@@ -61,9 +59,7 @@ describe('MODEL', function () {
         `);
         const Employee = new Model('employees');
         const {rows} = await Employee.find({
-            where: {
-                email: testUserB
-            }
+            where: {email: testUserB}
         });
         assert.equal(rows.length, 1);
         assert.equal(testUserB, rows[0].email);
@@ -82,7 +78,7 @@ describe('MODEL', function () {
         assert.equal(testUserC, rows[0].email);
     });
 
-    it('should update employee A', async function () {
+    it('should update employee', async function () {
         await query(`
             INSERT INTO employees (email) values
                 ('${testUserA}');
@@ -97,6 +93,36 @@ describe('MODEL', function () {
         `);
         assert.equal(rows.length, 1);
         assert.equal(testUserB, rows[0].email);
+    });
+
+    it('should delete employee', async function () {
+        await query(`
+            INSERT INTO employees (email) values
+                ('${testUserA}');
+        `);
+        const Employee = new Model('employees');
+        await Employee.delete({
+            where: {email: testUserA}
+        });
+        const {rows} = await query(`
+            select email from employees where email = '${testUserA}' and deleted_at is null;
+        `);
+        assert.equal(rows.length, 0);
+    });
+
+    it('should restore employee', async function () {
+        await query(`
+            INSERT INTO employees (email, deleted_at) values
+                ('${testUserA}', '${now}');
+        `);
+        const Employee = new Model('employees');
+        await Employee.restore({
+            where: {email: testUserA}
+        });
+        const {rows} = await query(`
+            select email from employees where email = '${testUserA}' and deleted_at is null;
+        `);
+        assert.equal(rows.length, 1);
     });
 
 });
