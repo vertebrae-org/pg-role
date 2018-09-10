@@ -11,4 +11,3 @@ module.exports.restore = require('./lib/restore');
 module.exports.where = require('./lib/where');
 module.exports.def = require('./lib/def');
 module.exports.Model = require('./lib/Model');
-

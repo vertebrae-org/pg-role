@@ -2,7 +2,7 @@ const assert = require('assert');
 const {db,select,restore,query} = require('..');
 
 const testUserA = 'a@test.com';
-const now = new Date().toUTCString();
+const now = new Date().toISOString();
 
 describe('RESTORE', function () {
 
@@ -26,13 +26,15 @@ describe('RESTORE', function () {
     });
 
     it('should restore employee A', async function () {
-        await restore({
+        const a = await restore({
             model: 'employees',
             where: {email: testUserA}
         });
         const {rows} = await query(`
             select email from employees where email = '${testUserA}' and deleted_at is null;
         `);
+        assert.equal(testUserA, a.email);
+        assert.equal(null, a.deleted_at);
         assert.equal(rows.length, 1);
     });
 

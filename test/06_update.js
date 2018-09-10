@@ -28,7 +28,7 @@ describe('UPDATE', function () {
             INSERT INTO employees (email) values
                 ('${testUserA}');
         `);
-        await update({
+        const a = await update({
             model: 'employees',
             where: {
                 email: testUserA
@@ -37,6 +37,7 @@ describe('UPDATE', function () {
                 email: testUserB
             }
         });
+        assert.equal(testUserB, a.email);
         const {rows} = await query(`
             select email from employees where email = '${testUserB}';
         `);

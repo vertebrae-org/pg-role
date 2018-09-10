@@ -25,24 +25,27 @@ describe('INSERT', function () {
     });
 
     it('should insert employees', async function () {
-        await insert({
+        const a = await insert({
             model: 'employees',
             set: {
                 email: testUserA
             }
         });
-        await insert({
+        const b = await insert({
             model: 'employees',
             set: {
                 email: testUserB
             }
         });
-        await insert({
+        const c = await insert({
             model: 'employees',
             set: {
                 email: testUserC
             }
         });
+        assert(testUserA, a.email);
+        assert(testUserB, b.email);
+        assert(testUserC, c.email);
         const {rows} = await query(`
             select email from employees;
         `);

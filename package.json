@@ -1,15 +1,15 @@
 {
   "name": "pg-role",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "opinionated pg abstraction",
   "main": "index.js",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "docs-serve": "documentation serve --watch index.js",
-    "docs-build": "documentation build index.js -f html -o docs",
-    "postdocs-build": "documentation readme index.js -s Methods",
+    "docs-serve": "documentation serve index.js --watch --theme node_modules/clean-documentation-theme",
+    "docs-build": "documentation build index.js -f html -o docs --theme node_modules/clean-documentation-theme",
+    "postdocs-build": "documentation readme index.js -s Methods --theme node_modules/clean-documentation-theme",
     "test": "clear && mocha --exit --bail"
   },
   "repository": {
@@ -33,6 +33,7 @@
     "pg-escape": "^0.2.0"
   },
   "devDependencies": {
+    "clean-documentation-theme": "^0.5.2",
     "documentation": "^8.1.2",
     "mocha": "^5.2.0"
   }

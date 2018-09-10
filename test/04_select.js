@@ -58,5 +58,88 @@ describe('SELECT', function () {
         assert.equal(testUserA, rows[0] && rows[0].email);
     });
 
+    it('should select employees like "@test.com"', async function () {
+        const {rows} = await select({
+            model: 'employees',
+            where: {
+                $like: {
+                    email: '%@test.com'
+                }
+            }
+        });
+        assert.equal(rows.length, 3);
+        assert.equal(testUserA, rows[0] && rows[0].email);
+        assert.equal(testUserB, rows[0] && rows[1].email);
+        assert.equal(testUserC, rows[0] && rows[2].email);
+    });
+
+    it('should select employees with id < 2', async function () {
+        const {rows} = await select({
+            model: 'employees',
+            where: {
+                $lt: {
+                    id: 2
+                }
+            }
+        });
+        assert.equal(rows.length, 1);
+        assert.equal(testUserA, rows[0] && rows[0].email);
+    });
+
+    it('should select employees with id > 2', async function () {
+        const {rows} = await select({
+            model: 'employees',
+            where: {
+                $gt: {
+                    id: 2
+                }
+            }
+        });
+        assert.equal(rows.length, 1);
+        assert.equal(testUserC, rows[0] && rows[0].email);
+    });
+
+    it('should select employees with id <= 2', async function () {
+        const {rows} = await select({
+            model: 'employees',
+            where: {
+                $lte: {
+                    id: 2
+                }
+            }
+        });
+        assert.equal(rows.length, 2);
+        assert.equal(testUserA, rows[0] && rows[0].email);
+        assert.equal(testUserB, rows[1] && rows[1].email);
+    });
+
+    it('should select employees with id >= 2', async function () {
+        const {rows} = await select({
+            model: 'employees',
+            where: {
+                $gte: {
+                    id: 2
+                }
+            }
+        });
+        assert.equal(rows.length, 2);
+        assert.equal(testUserB, rows[0] && rows[0].email);
+        assert.equal(testUserC, rows[1] && rows[1].email);
+    });
+
+    it('should select employees with id != 2', async function () {
+        const {rows} = await select({
+            model: 'employees',
+            where: {
+                $ne: {
+                    id: 2
+                }
+            }
+        });
+        assert.equal(rows.length, 2);
+        assert.equal(testUserA, rows[0] && rows[0].email);
+        assert.equal(testUserC, rows[1] && rows[1].email);
+    });
+
 });
 

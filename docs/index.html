@@ -1,973 +1,64 @@
 <!doctype html>
-<html>
-<head>
-  <meta charset='utf-8' />
-  <title>pg-role 0.0.2 | Documentation</title>
-  <meta name='viewport' content='width=device-width,initial-scale=1'>
-  <link href='assets/bass.css' type='text/css' rel='stylesheet' />
-  <link href='assets/style.css' type='text/css' rel='stylesheet' />
-  <link href='assets/github.css' type='text/css' rel='stylesheet' />
-  <link href='assets/split.css' type='text/css' rel='stylesheet' />
-  <meta name='description' content='opinionated pg abstraction focused on role based connection pools'>
-</head>
-<body class='documentation m0'>
-    <div class='flex'>
-      <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
-        <div class='py1 px2'>
-          <h3 class='mb0 no-anchor'>pg-role</h3>
-          <div class='mb1'><code>0.0.2</code></div>
-          <input
-            placeholder='Filter'
-            id='filter-input'
-            class='col12 block input'
-            type='text' />
-          <div id='toc'>
-            <ul class='list-reset h5 py1-ul'>
-              
-                
-                <li><a
-                  href='#select'
-                  class="">
-                  select
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#insert'
-                  class="">
-                  insert
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#update'
-                  class="">
-                  update
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#remove'
-                  class="">
-                  remove
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#restore'
-                  class="">
-                  restore
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#query'
-                  class="">
-                  query
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#def'
-                  class="">
-                  def
-                  
-                </a>
-                
-                </li>
-              
-            </ul>
-          </div>
-          <div class='mt1 h6 quiet'>
-            <a href='http://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
-          </div>
-        </div>
-      </div>
-      <div id='split-right' class='relative overflow-auto height-viewport-100'>
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='select'>
-      select
-    </h3>
-    
-    
-  </div>
-  
-
-  <pre class='hljs'><span class="hljs-keyword">const</span> {select} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pg-role'</span>);</pre>
-
- 
-  
-    <div class='pre p1 fill-light mt0'>select(options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</div>
-   
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
-	    
-          </div>
-          
-          <table class='mt1 mb2 fixed-table h5 col-12'>
-            <colgroup>
-              <col width='30%' />
-              <col width='70%' />
-            </colgroup>
-            <thead>
-              <tr class='bold fill-light'>
-                <th>Name</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody class='mt1'>
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.pool</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-  
-    (default <code>&#39;default&#39;</code>)
-  </td>
-  <td class='break-word'><span>pool connection name
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.schema</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-  
-    (default <code>&#39;public&#39;</code>)
-  </td>
-  <td class='break-word'><span>database schema
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.model</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-  </td>
-  <td class='break-word'><span>table to select from
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.where</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>
-  </td>
-  <td class='break-word'><span>conditions
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.id</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
-  </td>
-  <td class='break-word'><span>add id to where conditions
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.group</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">array</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-  
-    (default <code>&#39;&#39;</code>)
-  </td>
-  <td class='break-word'><span>group by column(s)
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.offset</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
-  
-    (default <code>0</code>)
-  </td>
-  <td class='break-word'><span>offset result index
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.limit</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
-  
-    (default <code>1000</code>)
-  </td>
-  <td class='break-word'><span>limit result length
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.deleted</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
-  
-    (default <code>false</code>)
-  </td>
-  <td class='break-word'><span>do not filter rows with 'deleted_at' timestamp
-</span></td>
-</tr>
-
-
-              
-            </tbody>
-          </table>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getEmployee</span> (<span class="hljs-params">id</span>) </span>{
-     <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> select({
-         <span class="hljs-attr">model</span>: <span class="hljs-string">'employees'</span>,
-         id
-     });
- }</pre>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getDeletedEmployee</span> (<span class="hljs-params">id</span>) </span>{
-     <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> select({
-         <span class="hljs-attr">model</span>: <span class="hljs-string">'employees'</span>,
-         id,
-         <span class="hljs-attr">where</span>: {
-             <span class="hljs-attr">deleted_at</span>: <span class="hljs-string">'not null'</span>
-         }
-     });
- }</pre>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getActiveEmployeesByRole</span> (<span class="hljs-params">role</span>) </span>{
-     <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> select({
-         <span class="hljs-attr">model</span>: <span class="hljs-string">'employees'</span>,
-         <span class="hljs-attr">where</span>: {
-             role
-         }
-     });
- }</pre>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getAllEmployeesByRole</span> (<span class="hljs-params">role</span>) </span>{
-     <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> select({
-         <span class="hljs-attr">model</span>: <span class="hljs-string">'employees'</span>,
-         <span class="hljs-attr">deleted</span>: <span class="hljs-literal">true</span>,
-         <span class="hljs-attr">where</span>: {
-             role
-         }
-     });
- }</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='insert'>
-      insert
-    </h3>
-    
-    
-  </div>
-  
-
-  <pre class='hljs'><span class="hljs-keyword">const</span> {insert} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pg-role'</span>);</pre>
-
- 
-  
-    <div class='pre p1 fill-light mt0'>insert(options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</div>
-   
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
-	    
-          </div>
-          
-          <table class='mt1 mb2 fixed-table h5 col-12'>
-            <colgroup>
-              <col width='30%' />
-              <col width='70%' />
-            </colgroup>
-            <thead>
-              <tr class='bold fill-light'>
-                <th>Name</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody class='mt1'>
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.pool</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-  
-    (default <code>&#39;default&#39;</code>)
-  </td>
-  <td class='break-word'><span>pool connection name
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.schema</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-  
-    (default <code>&#39;public&#39;</code>)
-  </td>
-  <td class='break-word'><span>database schema
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.model</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-  </td>
-  <td class='break-word'><span>table to select from
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.set</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>
-  </td>
-  <td class='break-word'><span>values to set
-</span></td>
-</tr>
-
-
-              
-            </tbody>
-          </table>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">newEmployee</span> (<span class="hljs-params">set</span>) </span>{
-     <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> insert({
-         <span class="hljs-attr">model</span>: <span class="hljs-string">'employees'</span>,
-         set
-     });
- }</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='update'>
-      update
-    </h3>
-    
-    
-  </div>
-  
-
-  <pre class='hljs'><span class="hljs-keyword">const</span> {update} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pg-role'</span>);</pre>
-
- 
-  
-    <div class='pre p1 fill-light mt0'>update(options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</div>
-   
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
-	    
-          </div>
-          
-          <table class='mt1 mb2 fixed-table h5 col-12'>
-            <colgroup>
-              <col width='30%' />
-              <col width='70%' />
-            </colgroup>
-            <thead>
-              <tr class='bold fill-light'>
-                <th>Name</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody class='mt1'>
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.pool</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-  
-    (default <code>&#39;default&#39;</code>)
-  </td>
-  <td class='break-word'><span>pool connection name
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.schema</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-  
-    (default <code>&#39;public&#39;</code>)
-  </td>
-  <td class='break-word'><span>database schema
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.model</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-  </td>
-  <td class='break-word'><span>table to select from
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.where</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>
-  </td>
-  <td class='break-word'><span>conditions
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.id</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
-  </td>
-  <td class='break-word'><span>add id to where conditions
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.set</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>
-  </td>
-  <td class='break-word'><span>values to set
-</span></td>
-</tr>
-
-
-              
-            </tbody>
-          </table>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateEmployee</span> (<span class="hljs-params">id, set</span>) </span>{
-     <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> update({
-         <span class="hljs-attr">model</span>: <span class="hljs-string">'employees'</span>,
-         id,
-         set
-     });
- }</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='remove'>
-      remove
-    </h3>
-    
-    
-  </div>
-  
-
-  <pre class='hljs'><span class="hljs-keyword">const</span> {remove} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pg-role'</span>);</pre>
-
- 
-  
-    <div class='pre p1 fill-light mt0'>remove(options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</div>
-   
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>
-            = <code>{}</code>)</code>
-	    
-          </div>
-          
-          <table class='mt1 mb2 fixed-table h5 col-12'>
-            <colgroup>
-              <col width='30%' />
-              <col width='70%' />
-            </colgroup>
-            <thead>
-              <tr class='bold fill-light'>
-                <th>Name</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody class='mt1'>
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.pool</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-  
-    (default <code>&#39;default&#39;</code>)
-  </td>
-  <td class='break-word'><span>pool connection name
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.schema</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-  
-    (default <code>&#39;public&#39;</code>)
-  </td>
-  <td class='break-word'><span>database schema
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.model</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-  </td>
-  <td class='break-word'><span>table to select from
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.where</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>
-  </td>
-  <td class='break-word'><span>conditions
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.id</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
-  </td>
-  <td class='break-word'><span>add id to where conditions
-</span></td>
-</tr>
-
-
-              
-            </tbody>
-          </table>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeEmployee</span> (<span class="hljs-params">id</span>) </span>{
-     <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> remove({
-         <span class="hljs-attr">model</span>: <span class="hljs-string">'employees'</span>,
-         id
-     });
- }</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='restore'>
-      restore
-    </h3>
-    
-    
-  </div>
-  
-
-  <pre class='hljs'><span class="hljs-keyword">const</span> {restore} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pg-role'</span>);</pre>
-
- 
-  
-    <div class='pre p1 fill-light mt0'>restore(options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</div>
-   
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>
-            = <code>{}</code>)</code>
-	    
-          </div>
-          
-          <table class='mt1 mb2 fixed-table h5 col-12'>
-            <colgroup>
-              <col width='30%' />
-              <col width='70%' />
-            </colgroup>
-            <thead>
-              <tr class='bold fill-light'>
-                <th>Name</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody class='mt1'>
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.pool</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-  
-    (default <code>&#39;default&#39;</code>)
-  </td>
-  <td class='break-word'><span>pool connection name
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.schema</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-  
-    (default <code>&#39;public&#39;</code>)
-  </td>
-  <td class='break-word'><span>database schema
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.model</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-  </td>
-  <td class='break-word'><span>table to select from
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.where</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>
-  </td>
-  <td class='break-word'><span>conditions
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.id</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
-  </td>
-  <td class='break-word'><span>add id to where conditions
-</span></td>
-</tr>
-
-
-              
-            </tbody>
-          </table>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">restoreEmployee</span> (<span class="hljs-params">id</span>) </span>{
-     <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> restore({
-         <span class="hljs-attr">model</span>: <span class="hljs-string">'employees'</span>,
-         id
-     });
- }</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='query'>
-      query
-    </h3>
-    
-    
-  </div>
-  
-
-  <pre class='hljs'><span class="hljs-keyword">const</span> {query} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pg-role'</span>);</pre>
-
- 
-  
-    <div class='pre p1 fill-light mt0'>query(options: (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>))</div>
-   
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>))</code>
-	    
-          </div>
-          
-          <table class='mt1 mb2 fixed-table h5 col-12'>
-            <colgroup>
-              <col width='30%' />
-              <col width='70%' />
-            </colgroup>
-            <thead>
-              <tr class='bold fill-light'>
-                <th>Name</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody class='mt1'>
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.pool</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-  
-    (default <code>&#39;default&#39;</code>)
-  </td>
-  <td class='break-word'><span>pool connection name
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.text</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-  </td>
-  <td class='break-word'><span>sql string
-</span></td>
-</tr>
-
-
-              
-            </tbody>
-          </table>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getEmployeesByDomain</span> (<span class="hljs-params">domain</span>) </span>{
+<html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title> - Documentation</title><link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500|Roboto:300,500,700" rel="stylesheet"/><style>body{margin: 0;
+padding: 0;
+color: #000;
+font-family: Roboto, sans-serif;
+font-weight: 300;
+line-height: 26px;
+font-size: 17px;}*{-moz-box-sizing: border-box;
+box-sizing: border-box;}</style></head><body><main id="app"><div data-radium="true"><div style="position:fixed;box-shadow:0px 2px 3px 0px rgba(0, 0, 0, 0.25);width:100%;min-width:100%;margin-left:0px;margin-right:0px;height:65px;z-index:99;background:#FFFFFF;padding-top:10px;padding-bottom:10px;padding-left:20px;padding-right:20px;" data-radium="true"><div style="margin-right:auto;margin-left:auto;padding-left:15px;padding-right:15px;" class="rmq-87b609c0 rmq-159a7c96 rmq-27601239" data-radium="true"><div style="margin-left:-15px;margin-right:-15px;" data-radium="true"><div style="position:relative;min-height:1px;padding-left:15px;padding-right:15px;float:left;width:50.00000%;" class="rmq-aa1729d5 rmq-a22eaf97 rmq-1918856d rmq-6156e77b rmq-21ab0466 rmq-a01b93a4 rmq-d226cb7e rmq-5cc71c8" data-radium="true"><svg fill="currentColor" preserveAspectRatio="xMidYMid meet" height="1em" width="1em" viewBox="0 0 40 40" style="vertical-align:inherit;font-size:36px;margin-right:20px;"><g><path d="m30 22.5h-5c-1.3 0-2.5 1.3-2.5 2.5h10c0-1.3-1.2-2.5-2.5-2.5z m-2.1-16.2c-6.6 0-8.2 1.2-9.1 2.1-1-0.9-2.6-2.1-9.2-2.1s-9.6 1.7-9.6 3v22.9c1.1-0.6 4.6-1.9 8.4-2.2 4.4-0.4 9.1 0.4 9.1 1.2 0 0.7 0.3 1.3 1.2 1.3h0.1c0.9 0 1.2-0.6 1.2-1.2 0-0.9 4.6-1.7 9.1-1.3 3.7 0.3 7.3 1.6 8.4 2.2v-22.9c0-1.3-3.1-3-9.6-3z m-10.4 22.3c-1.2-0.6-4-1.1-7.5-1.1s-6.6 0.5-7.5 1.1v-17.3s2.5-2.4 7.5-2.4 7.5 1.1 7.5 2.4v17.3z m17.5 0c-0.9-0.6-4-1.1-7.5-1.1s-6.3 0.5-7.5 1.1v-17.3s2.5-2.4 7.5-2.4 7.5 1.1 7.5 2.4v17.3z m-5-11.1h-5c-1.3 0-2.5 1.3-2.5 2.5h10c0-1.3-1.2-2.5-2.5-2.5z m0-5h-5c-1.3 0-2.5 1.3-2.5 2.5h10c0-1.3-1.2-2.5-2.5-2.5z m-17.5 5h-5c-1.2 0-2.5 1.2-2.5 2.5h10c0-1.2-1.2-2.5-2.5-2.5z m0 5h-5c-1.2 0-2.5 1.2-2.5 2.5h10c0-1.2-1.2-2.5-2.5-2.5z m0-10h-5c-1.2 0-2.5 1.2-2.5 2.5h10c0-1.2-1.2-2.5-2.5-2.5z"></path></g></svg><div style="display:inline-block;" data-radium="true"><div style="text-transform:uppercase;font-family:Roboto, sans-serif;" data-radium="true"></div><div style="font-family:Roboto Mono, Menlo, Monaco, Courier, monospace;font-weight:300;" data-radium="true"></div></div></div><div style="position:relative;min-height:1px;padding-left:15px;padding-right:15px;float:right !important;width:25.00000%;text-align:right;font-size:36px;" class="rmq-aa1729d5 rmq-a22eaf97 rmq-1918856d rmq-6156e77b rmq-77267d84 rmq-5c0c1446 rmq-4605701c rmq-34ee8e6a" data-radium="true"><a href="https://github.com/vertebrae-org/pg-role#readme"><svg fill="currentColor" preserveAspectRatio="xMidYMid meet" height="1em" width="1em" viewBox="0 0 40 40" style="vertical-align:middle;"><g><path d="m20 0c-11 0-20 9-20 20 0 8.8 5.7 16.3 13.7 19 1 0.2 1.3-0.5 1.3-1 0-0.5 0-2 0-3.7-5.5 1.2-6.7-2.4-6.7-2.4-0.9-2.3-2.2-2.9-2.2-2.9-1.9-1.2 0.1-1.2 0.1-1.2 2 0.1 3.1 2.1 3.1 2.1 1.7 3 4.6 2.1 5.8 1.6 0.2-1.3 0.7-2.2 1.3-2.7-4.5-0.5-9.2-2.2-9.2-9.8 0-2.2 0.8-4 2.1-5.4-0.2-0.5-0.9-2.6 0.2-5.3 0 0 1.7-0.5 5.5 2 1.6-0.4 3.3-0.6 5-0.6 1.7 0 3.4 0.2 5 0.7 3.8-2.6 5.5-2.1 5.5-2.1 1.1 2.8 0.4 4.8 0.2 5.3 1.3 1.4 2.1 3.2 2.1 5.4 0 7.6-4.7 9.3-9.2 9.8 0.7 0.6 1.4 1.9 1.4 3.7 0 2.7 0 4.9 0 5.5 0 0.6 0.3 1.2 1.3 1 8-2.7 13.7-10.2 13.7-19 0-11-9-20-20-20z"></path></g></svg></a></div><div style="clear:both;" data-radium="true"></div></div><div style="clear:both;" data-radium="true"></div></div></div><div style="margin-right:auto;margin-left:auto;padding-left:15px;padding-right:15px;padding-top:104px;" class="rmq-87b609c0 rmq-159a7c96 rmq-27601239" data-radium="true"><div style="margin-left:-15px;margin-right:-15px;" data-radium="true"><div style="position:fixed;min-height:1px;padding-left:15px;padding-right:15px;float:left;width:8.33333%;height:80%;max-width:300px;" class="rmq-aa1729d5 rmq-a22eaf97 rmq-1918856d rmq-6156e77b rmq-5c4c5b38 rmq-5c0c1446 rmq-4605701c rmq-34ee8e6a rmq-35757987 rmq-f09e82ae" data-radium="true"><div style="font-family:Roboto, sans-serif;border-radius:4px;padding-top:0;padding-bottom:0;margin-top:26px;border:1px solid #e6e9ed;font-weight:500;font-size:15px;line-height:18px;max-height:70vh;overflow-x:auto;" data-radium="true"><ul style="list-style:none;margin-top:0;margin-bottom:0;padding-left:0;" data-radium="true"><div data-radium="true"><li style="padding-left:20px;padding-right:20px;padding-top:13px;padding-bottom:13px;border-bottom:1px solid #e6e9ed;" data-radium="true"><a style="color:#000;" href="#query" data-radium="true">Query</a></li></div><div data-radium="true"><li style="padding-left:20px;padding-right:20px;padding-top:13px;padding-bottom:13px;border-bottom:1px solid #e6e9ed;" data-radium="true"><a style="color:#000;" href="#select" data-radium="true">Select</a></li></div><div data-radium="true"><li style="padding-left:20px;padding-right:20px;padding-top:13px;padding-bottom:13px;border-bottom:1px solid #e6e9ed;" data-radium="true"><a style="color:#000;" href="#insert" data-radium="true">Insert</a></li></div><div data-radium="true"><li style="padding-left:20px;padding-right:20px;padding-top:13px;padding-bottom:13px;border-bottom:1px solid #e6e9ed;" data-radium="true"><a style="color:#000;" href="#update" data-radium="true">Update</a></li></div><div data-radium="true"><li style="padding-left:20px;padding-right:20px;padding-top:13px;padding-bottom:13px;border-bottom:1px solid #e6e9ed;" data-radium="true"><a style="color:#000;" href="#remove" data-radium="true">Remove</a></li></div><div data-radium="true"><li style="padding-left:20px;padding-right:20px;padding-top:13px;padding-bottom:13px;border-bottom:1px solid #e6e9ed;" data-radium="true"><a style="color:#000;" href="#restore" data-radium="true">Restore</a></li></div><div data-radium="true"><li style="padding-left:20px;padding-right:20px;padding-top:13px;padding-bottom:13px;border-bottom:1px solid #e6e9ed;" data-radium="true"><a style="color:#000;" href="#model" data-radium="true">Model</a></li><li style="padding-left:20px;padding-right:20px;padding-top:13px;padding-bottom:13px;border-bottom:1px solid #e6e9ed;" data-radium="true"><div style="padding-top:0;" data-radium="true"><span style="text-transform:uppercase;font-size:13px;line-height:18px;color:#666;" data-radium="true">Instance</span><ul style="list-style:none;padding-left:0;" data-radium="true"><li data-radium="true"><a href="#modelcreate" style="font-family:Roboto, sans-serif;font-weight:300;font-size:13px;line-height:16px;text-decoration:none;color:#555;" data-radium="true">create</a></li><li data-radium="true"><a href="#modelselect" style="font-family:Roboto, sans-serif;font-weight:300;font-size:13px;line-height:16px;text-decoration:none;color:#555;" data-radium="true">select</a></li><li data-radium="true"><a href="#modelfind" style="font-family:Roboto, sans-serif;font-weight:300;font-size:13px;line-height:16px;text-decoration:none;color:#555;" data-radium="true">find</a></li></ul></div></li></div><div data-radium="true"><li style="padding-left:20px;padding-right:20px;padding-top:13px;padding-bottom:13px;border-bottom:1px solid #e6e9ed;" data-radium="true"><a style="color:#000;" href="#modelinstance" data-radium="true">ModelInstance</a></li><li style="padding-left:20px;padding-right:20px;padding-top:13px;padding-bottom:13px;border-bottom:none;" data-radium="true"><div style="padding-top:0;" data-radium="true"><span style="text-transform:uppercase;font-size:13px;line-height:18px;color:#666;" data-radium="true">Instance</span><ul style="list-style:none;padding-left:0;" data-radium="true"><li data-radium="true"><a href="#modelinstanceget" style="font-family:Roboto, sans-serif;font-weight:300;font-size:13px;line-height:16px;text-decoration:none;color:#555;" data-radium="true">get</a></li><li data-radium="true"><a href="#modelinstanceupdate" style="font-family:Roboto, sans-serif;font-weight:300;font-size:13px;line-height:16px;text-decoration:none;color:#555;" data-radium="true">update</a></li><li data-radium="true"><a href="#modelinstancedelete" style="font-family:Roboto, sans-serif;font-weight:300;font-size:13px;line-height:16px;text-decoration:none;color:#555;" data-radium="true">delete</a></li><li data-radium="true"><a href="#modelinstancerestore" style="font-family:Roboto, sans-serif;font-weight:300;font-size:13px;line-height:16px;text-decoration:none;color:#555;" data-radium="true">restore</a></li></ul></div></li></div></ul></div></div><div style="position:relative;min-height:1px;padding-left:15px;padding-right:15px;float:left;width:100.00000%;" class="rmq-aa1729d5 rmq-a22eaf97 rmq-1918856d rmq-6156e77b rmq-89bb2272 rmq-2d0e68c6 rmq-3752549c rmq-3b9282ea rmq-4d29a8df rmq-ea7683a5 rmq-ad95cc33" data-radium="true"><div class="content" data-radium="true"><style>h1, h2, h3, h4, h5, h6{font-family: Roboto, sans-serif;
+font-weight: 300;}h1{font-size: 48px;
+line-height: 72px;}h2{font-size: 24px;
+line-height: 36px;}h3{font-size: 19px;
+line-height: 29px;
+font-weight: 400;}h4{font-size: 17px;
+line-height: 22px;
+font-weight: 400;}a{text-decoration: none;
+color: #00AAFF;
+:hover: [object Object];}a.anchor:before{content: "";
+display: block;
+height: 100px;
+margin: -80px 0 0;}.content blockquote{padding-left: 20px;
+margin: 0;
+border-left: 4px solid #eee;}.content ul, content li{list-style: none;}.content ul li:before{color: #CCC;
+float: left;
+margin-left: -20px;
+margin-top: 1px;
+content: "•";}pre.hljs, pre > code{margin-bottom: 30px;
+font-family: Roboto Mono, Menlo, Monaco, Courier, monospace;
+padding: 12px 15px 12px 15px;
+border-radius: 4px;
+box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+display: block;
+position: relative;
+overflow-x: auto;
+font-size: 13px;
+color: #666;
+white-space: pre;}code{font-family: Roboto Mono, Menlo, Monaco, Courier, monospace;
+display: inline;
+font-size: 13px;
+font-weight: 400;
+margin: 0 2px;
+padding: 1px 6px;
+box-shadow: 0 0 0 1px #DDD;
+white-space: nowrap;
+border-radius: 4px;}.hljs{display: block;
+overflow-x: auto;}.hljs-comment, .hljs-quote{color: #998;
+font-style: italic;}.hljs-keyword, .hljs-selector-tag, .hljs-subst{color: #333;
+font-weight: bold;}.hljs-number, .hljs-literal, .hljs-variable, .hljs-template-variable, .hljs-tag .hljs-attr{color: #008080;}.hljs-string, .hljs-doctag{color: #d14;}.hljs-title, .hljs-section, .hljs-selector-id{color: #900;
+font-weight: bold;}.hljs-subst{font-weight: normal;}.hljs-type, .hljs-class .hljs-title{color: #458;
+font-weight: bold;}.hljs-tag, .hljs-name, .hljs-attribute{color: #000080;
+font-weight: normal;}.hljs-regexp, .hljs-link{color: #009926;}.hljs-symbol, .hljs-bullet{color: #990073;}.hljs-built_in, .hljs-builtin-name{color: #0086b3;}.hljs-meta{color: #999;
+font-weight: bold;}.hljs-deletion{background: #fdd;}.hljs-addition{background: #dfd;}.hljs-emphasis{font-style: italic;}.hljs-strong{font-weight: bold;}</style><div style="margin-bottom:104px;" data-radium="true"><h1 data-radium="true"><a class="anchor" name="query"></a>Query</h1><div><pre class='hljs'><span class="hljs-keyword">const</span> {query} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pg-role'</span>);</pre>
+</div><div data-radium="true"><h4>Parameters</h4><ol style="list-style:none;margin-left:0;padding-left:0;" data-radium="true"><div data-radium="true"><li style="padding-bottom:13px;" data-radium="true"><code>options: (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>:  <div style="display:inline-block;" data-radium="true"></div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.pool: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> (='default')</code>:  <div style="display:inline-block;" data-radium="true">pool connection name
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.text: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:  <div style="display:inline-block;" data-radium="true">sql string
+</div></li></div></ol></div><div data-radium="true"><div data-radium="true"><h4>Example</h4><pre><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getEmployeesByDomain</span> (<span class="hljs-params">domain</span>) </span>{
      <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> query(<span class="hljs-string">`
          select * from employees
          where email like '%@<span class="hljs-subst">${domain}</span>'
          limit 1000;
      `</span>);
- }</pre>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getEmployeesByDomain</span> (<span class="hljs-params">domain</span>) </span>{
+ }</code></pre></div><div data-radium="true"><h4>Example</h4><pre><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getEmployeesByDomain</span> (<span class="hljs-params">domain</span>) </span>{
      <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> query({
          <span class="hljs-attr">pool</span>: <span class="hljs-string">'admin'</span>,
          <span class="hljs-attr">text</span>: <span class="hljs-string">`
@@ -976,150 +67,180 @@
              limit 1000;
          `</span>
      });
- }</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='def'>
-      def
-    </h3>
-    
-    
-  </div>
-  
-
-  <pre class='hljs'><span class="hljs-keyword">const</span> {def} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pg-role'</span>);</pre>
-
- 
-  
-    <div class='pre p1 fill-light mt0'>def(options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</div>
-   
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
-	    
-          </div>
-          
-          <table class='mt1 mb2 fixed-table h5 col-12'>
-            <colgroup>
-              <col width='30%' />
-              <col width='70%' />
-            </colgroup>
-            <thead>
-              <tr class='bold fill-light'>
-                <th>Name</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody class='mt1'>
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.pool</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-  
-    (default <code>&#39;default&#39;</code>)
-  </td>
-  <td class='break-word'><span>pool connection name
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.schema</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-  
-    (default <code>&#39;public&#39;</code>)
-  </td>
-  <td class='break-word'><span>database schema
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.database</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-  </td>
-  <td class='break-word'><span>database name
-</span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>options.model</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-  </td>
-  <td class='break-word'><span>table to select from
-</span></td>
-</tr>
-
-
-              
-            </tbody>
-          </table>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getTableDef</span> (<span class="hljs-params">database, model</span>) </span>{
-     <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> def({
-         database,
-         model
+ }</code></pre></div></div></div><div style="margin-bottom:104px;" data-radium="true"><h1 data-radium="true"><a class="anchor" name="select"></a>Select</h1><div><pre class='hljs'><span class="hljs-keyword">const</span> {select} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pg-role'</span>);</pre>
+</div><div data-radium="true"><h4>Parameters</h4><ol style="list-style:none;margin-left:0;padding-left:0;" data-radium="true"><div data-radium="true"><li style="padding-bottom:13px;" data-radium="true"><code>options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:  <div style="display:inline-block;" data-radium="true"></div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.pool: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> (='default')</code>:  <div style="display:inline-block;" data-radium="true">pool connection name
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.schema: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> (='public')</code>:  <div style="display:inline-block;" data-radium="true">database schema
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.model: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:  <div style="display:inline-block;" data-radium="true">table to select from
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.where: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:  <div style="display:inline-block;" data-radium="true">conditions
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:  <div style="display:inline-block;" data-radium="true">add id to where conditions
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.group: (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">array</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>) (='')</code>:  <div style="display:inline-block;" data-radium="true">group by column(s)
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.offset: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> (=0)</code>:  <div style="display:inline-block;" data-radium="true">offset result index
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.limit: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> (=1000)</code>:  <div style="display:inline-block;" data-radium="true">limit result length
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.deleted: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a> (=false)</code>:  <div style="display:inline-block;" data-radium="true">do not filter rows with 'deleted_at' timestamp
+</div></li></div></ol></div><div data-radium="true"><div data-radium="true"><h4>Example</h4><pre><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getEmployee</span> (<span class="hljs-params">id</span>) </span>{
+     <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> select({
+         <span class="hljs-attr">model</span>: <span class="hljs-string">'employees'</span>,
+         id
      });
- }</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-        
-      </div>
-    </div>
-  <script src='assets/anchor.js'></script>
-  <script src='assets/split.js'></script>
-  <script src='assets/site.js'></script>
-</body>
-</html>
+ }</code></pre></div><div data-radium="true"><h4>Example</h4><pre><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getDeletedEmployee</span> (<span class="hljs-params">id</span>) </span>{
+     <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> select({
+         <span class="hljs-attr">model</span>: <span class="hljs-string">'employees'</span>,
+         id,
+         <span class="hljs-attr">where</span>: {
+             <span class="hljs-attr">deleted_at</span>: <span class="hljs-string">'not null'</span>
+         }
+     });
+ }</code></pre></div><div data-radium="true"><h4>Example</h4><pre><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getActiveEmployeesByRole</span> (<span class="hljs-params">role</span>) </span>{
+     <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> select({
+         <span class="hljs-attr">model</span>: <span class="hljs-string">'employees'</span>,
+         <span class="hljs-attr">where</span>: {
+             role
+         }
+     });
+ }</code></pre></div><div data-radium="true"><h4>Example</h4><pre><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getAllEmployeesByRole</span> (<span class="hljs-params">role</span>) </span>{
+     <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> select({
+         <span class="hljs-attr">model</span>: <span class="hljs-string">'employees'</span>,
+         <span class="hljs-attr">deleted</span>: <span class="hljs-literal">true</span>,
+         <span class="hljs-attr">where</span>: {
+             role
+         }
+     });
+ }</code></pre></div></div></div><div style="margin-bottom:104px;" data-radium="true"><h1 data-radium="true"><a class="anchor" name="insert"></a>Insert</h1><div><pre class='hljs'><span class="hljs-keyword">const</span> {insert} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pg-role'</span>);</pre>
+</div><div data-radium="true"><h4>Parameters</h4><ol style="list-style:none;margin-left:0;padding-left:0;" data-radium="true"><div data-radium="true"><li style="padding-bottom:13px;" data-radium="true"><code>options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:  <div style="display:inline-block;" data-radium="true"></div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.pool: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> (='default')</code>:  <div style="display:inline-block;" data-radium="true">pool connection name
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.schema: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> (='public')</code>:  <div style="display:inline-block;" data-radium="true">database schema
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.model: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:  <div style="display:inline-block;" data-radium="true">table to select from
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.set: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:  <div style="display:inline-block;" data-radium="true">values to set
+</div></li></div></ol></div><div data-radium="true"><div data-radium="true"><h4>Example</h4><pre><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">newEmployee</span> (<span class="hljs-params">set</span>) </span>{
+     <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> insert({
+         <span class="hljs-attr">model</span>: <span class="hljs-string">'employees'</span>,
+         set
+     });
+ }</code></pre></div></div></div><div style="margin-bottom:104px;" data-radium="true"><h1 data-radium="true"><a class="anchor" name="update"></a>Update</h1><div><pre class='hljs'><span class="hljs-keyword">const</span> {update} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pg-role'</span>);</pre>
+</div><div data-radium="true"><h4>Parameters</h4><ol style="list-style:none;margin-left:0;padding-left:0;" data-radium="true"><div data-radium="true"><li style="padding-bottom:13px;" data-radium="true"><code>options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:  <div style="display:inline-block;" data-radium="true"></div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.pool: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> (='default')</code>:  <div style="display:inline-block;" data-radium="true">pool connection name
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.schema: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> (='public')</code>:  <div style="display:inline-block;" data-radium="true">database schema
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.model: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:  <div style="display:inline-block;" data-radium="true">table to select from
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.where: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:  <div style="display:inline-block;" data-radium="true">conditions
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:  <div style="display:inline-block;" data-radium="true">add id to where conditions
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.set: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:  <div style="display:inline-block;" data-radium="true">values to set
+</div></li></div></ol></div><div data-radium="true"><div data-radium="true"><h4>Example</h4><pre><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateEmployee</span> (<span class="hljs-params">id, set</span>) </span>{
+     <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> update({
+         <span class="hljs-attr">model</span>: <span class="hljs-string">'employees'</span>,
+         id,
+         set
+     });
+ }</code></pre></div></div></div><div style="margin-bottom:104px;" data-radium="true"><h1 data-radium="true"><a class="anchor" name="remove"></a>Remove</h1><div><pre class='hljs'><span class="hljs-keyword">const</span> {remove} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pg-role'</span>);</pre>
+</div><div data-radium="true"><h4>Parameters</h4><ol style="list-style:none;margin-left:0;padding-left:0;" data-radium="true"><div data-radium="true"><li style="padding-bottom:13px;" data-radium="true"><code>options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:  <div style="display:inline-block;" data-radium="true"></div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.pool: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> (='default')</code>:  <div style="display:inline-block;" data-radium="true">pool connection name
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.schema: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> (='public')</code>:  <div style="display:inline-block;" data-radium="true">database schema
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.model: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:  <div style="display:inline-block;" data-radium="true">table to select from
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.where: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:  <div style="display:inline-block;" data-radium="true">conditions
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:  <div style="display:inline-block;" data-radium="true">add id to where conditions
+</div></li></div></ol></div><div data-radium="true"><div data-radium="true"><h4>Example</h4><pre><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeEmployee</span> (<span class="hljs-params">id</span>) </span>{
+     <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> remove({
+         <span class="hljs-attr">model</span>: <span class="hljs-string">'employees'</span>,
+         id
+     });
+ }</code></pre></div></div></div><div style="margin-bottom:104px;" data-radium="true"><h1 data-radium="true"><a class="anchor" name="restore"></a>Restore</h1><div><pre class='hljs'><span class="hljs-keyword">const</span> {restore} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pg-role'</span>);</pre>
+</div><div data-radium="true"><h4>Parameters</h4><ol style="list-style:none;margin-left:0;padding-left:0;" data-radium="true"><div data-radium="true"><li style="padding-bottom:13px;" data-radium="true"><code>options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:  <div style="display:inline-block;" data-radium="true"></div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.pool: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> (='default')</code>:  <div style="display:inline-block;" data-radium="true">pool connection name
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.schema: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> (='public')</code>:  <div style="display:inline-block;" data-radium="true">database schema
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.model: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:  <div style="display:inline-block;" data-radium="true">table to select from
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.where: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:  <div style="display:inline-block;" data-radium="true">conditions
+</div></li><li style="padding-bottom:13px;" data-radium="true"><code>options.id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:  <div style="display:inline-block;" data-radium="true">add id to where conditions
+</div></li></div></ol></div><div data-radium="true"><div data-radium="true"><h4>Example</h4><pre><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">restoreEmployee</span> (<span class="hljs-params">id</span>) </span>{
+     <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> restore({
+         <span class="hljs-attr">model</span>: <span class="hljs-string">'employees'</span>,
+         id
+     });
+ }</code></pre></div></div></div><div style="margin-bottom:104px;" data-radium="true"><h1 data-radium="true"><a class="anchor" name="model"></a>Model</h1><div><pre class='hljs'><span class="hljs-keyword">const</span> {Model} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pg-role'</span>);</pre>
+</div><div data-radium="true"><h4>Parameters</h4><ol style="list-style:none;margin-left:0;padding-left:0;" data-radium="true"><div data-radium="true"><li style="padding-bottom:13px;" data-radium="true"><code>model: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:  <div style="display:inline-block;" data-radium="true">Model name
+</div></li></div><div data-radium="true"><li style="padding-bottom:13px;" data-radium="true"><code>props: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:  <div style="display:inline-block;" data-radium="true">configuration object
+</div></li></div></ol></div><div data-radium="true"><h2 style="text-transform:uppercase;" data-radium="true">instance</h2><div style="margin-bottom:52px;" data-radium="true"><h3 data-radium="true"><a class="anchor" name="modelcreate"></a>Model.prototype.create</h3><pre><code>create(set: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): <a href="#modelinstance">ModelInstance</a></code></pre><div style="margin-top:13px;margin-bottom:13px;" data-radium="true"></div><div data-radium="true"><h4>Parameters</h4><ol style="list-style:none;margin-left:0;padding-left:0;" data-radium="true"><div data-radium="true"><li style="padding-bottom:13px;" data-radium="true"><code>set: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:  <div style="display:inline-block;" data-radium="true">set values object
+</div></li></div></ol></div><div data-radium="true"><h4>Returns</h4><div data-radium="true"><code><a href="#modelinstance">ModelInstance</a></code><span> 
+</span></div></div><div data-radium="true"><div data-radium="true"><h4>Example</h4><pre><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createEmployee</span> (<span class="hljs-params">email</span>) </span>{
+     <span class="hljs-keyword">const</span> employee = <span class="hljs-keyword">await</span> Employee.create({
+         email
+     });
+     <span class="hljs-built_in">console</span>.log(employee.get()));
+ }</code></pre></div></div></div><div style="margin-bottom:52px;" data-radium="true"><h3 data-radium="true"><a class="anchor" name="modelselect"></a>Model.prototype.select</h3><pre><code>select(opts: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code></pre><div style="margin-top:13px;margin-bottom:13px;" data-radium="true"></div><div data-radium="true"><h4>Parameters</h4><ol style="list-style:none;margin-left:0;padding-left:0;" data-radium="true"><div data-radium="true"><li style="padding-bottom:13px;" data-radium="true"><code>opts: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:  <div style="display:inline-block;" data-radium="true">options object
+</div></li></div></ol></div><div data-radium="true"><h4>Returns</h4><div data-radium="true"><code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code><span> selectObject
+</span></div></div><div data-radium="true"><div data-radium="true"><h4>Example</h4><pre><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">findEmployees</span>(<span class="hljs-params"></span>) </span>{
+     <span class="hljs-keyword">const</span> employee = <span class="hljs-keyword">await</span> Employee.select({
+         <span class="hljs-attr">where</span>: {
+             <span class="hljs-attr">$like</span>: {
+                 <span class="hljs-attr">email</span>: <span class="hljs-string">'%@comapany.com'</span>
+             }
+         }
+     });
+ }</code></pre></div></div></div><div style="margin-bottom:52px;" data-radium="true"><h3 data-radium="true"><a class="anchor" name="modelfind"></a>Model.prototype.find</h3><pre><code>find(where: (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>), options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): <a href="#modelinstance">ModelInstance</a></code></pre><div style="margin-top:13px;margin-bottom:13px;" data-radium="true"></div><div data-radium="true"><h4>Parameters</h4><ol style="list-style:none;margin-left:0;padding-left:0;" data-radium="true"><div data-radium="true"><li style="padding-bottom:13px;" data-radium="true"><code>where: (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>:  <div style="display:inline-block;" data-radium="true">id or where object
+</div></li></div><div data-radium="true"><li style="padding-bottom:13px;" data-radium="true"><code>options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:  <div style="display:inline-block;" data-radium="true">options object
+</div></li></div></ol></div><div data-radium="true"><h4>Returns</h4><div data-radium="true"><code><a href="#modelinstance">ModelInstance</a></code><span> 
+</span></div></div><div data-radium="true"><div data-radium="true"><h4>Example</h4><pre><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createEmployee</span> (<span class="hljs-params">email</span>) </span>{
+     <span class="hljs-keyword">const</span> Employee = <span class="hljs-keyword">new</span> Model(<span class="hljs-string">'employees'</span>);
+     <span class="hljs-keyword">const</span> employee = <span class="hljs-keyword">await</span> Employee.find({
+         <span class="hljs-attr">email</span>: testUserB
+     });
+     <span class="hljs-built_in">console</span>.log(employee.get()));
+ }</code></pre></div></div></div></div></div><div style="margin-bottom:104px;" data-radium="true"><h1 data-radium="true"><a class="anchor" name="modelinstance"></a>ModelInstance</h1><div><p>model instance created by Model.create('model_name')</p>
+</div><div data-radium="true"><h4>Parameters</h4><ol style="list-style:none;margin-left:0;padding-left:0;" data-radium="true"><div data-radium="true"><li style="padding-bottom:13px;" data-radium="true"><code>model: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:  <div style="display:inline-block;" data-radium="true"></div></li></div><div data-radium="true"><li style="padding-bottom:13px;" data-radium="true"><code>props: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:  <div style="display:inline-block;" data-radium="true"></div></li></div><div data-radium="true"><li style="padding-bottom:13px;" data-radium="true"><code>data: any</code>:  <div style="display:inline-block;" data-radium="true"></div></li></div></ol></div><div data-radium="true"><div data-radium="true"><h4>Example</h4><pre><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">messWithEmployee</span> (<span class="hljs-params">email</span>) </span>{
+     <span class="hljs-keyword">const</span> Employee = <span class="hljs-keyword">new</span> Model(<span class="hljs-string">'employee'</span>);
+     <span class="hljs-keyword">const</span> instance = <span class="hljs-keyword">await</span> Employee.create({
+         <span class="hljs-attr">email</span>: <span class="hljs-string">'some.employee@company.com'</span>,
+         <span class="hljs-attr">position</span>: <span class="hljs-string">'employee'</span>
+     });
+     <span class="hljs-built_in">console</span>.log(instance.get()); <span class="hljs-comment">// {id: 45, email: 'employee@company.com', ...}</span>
+     <span class="hljs-keyword">await</span> instance.update({
+         <span class="hljs-attr">position</span>: <span class="hljs-string">'manager'</span>
+     });
+     <span class="hljs-built_in">console</span>.log(instance.get()); <span class="hljs-comment">// {id: 45, email: 'manager@company.com, ...}</span>
+     <span class="hljs-keyword">await</span> instance.delete();
+     <span class="hljs-built_in">console</span>.log(instance.get()); <span class="hljs-comment">// {id: 45, email: 'manager@company.com, deleted_at: '2018-09-11T04:44:36.725Z', ...}</span>
+     <span class="hljs-keyword">await</span> instance.restore();
+     <span class="hljs-built_in">console</span>.log(instance.get()); <span class="hljs-comment">// {id: 45, email: 'manager@company.com, ...}</span>
+ }</code></pre></div></div><div data-radium="true"><h2 style="text-transform:uppercase;" data-radium="true">instance</h2><div style="margin-bottom:52px;" data-radium="true"><h3 data-radium="true"><a class="anchor" name="modelinstanceget"></a>ModelInstance.prototype.get</h3><pre><code>get(prop: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code></pre><div style="margin-top:13px;margin-bottom:13px;" data-radium="true"></div><div data-radium="true"><h4>Parameters</h4><ol style="list-style:none;margin-left:0;padding-left:0;" data-radium="true"><div data-radium="true"><li style="padding-bottom:13px;" data-radium="true"><code>prop: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:  <div style="display:inline-block;" data-radium="true">property to retrieve, if not specified all props are returned.
+</div></li></div></ol></div><div data-radium="true"><div data-radium="true"><h4>Example</h4><pre><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">testGet</span>(<span class="hljs-params"></span>) </span>{
+     <span class="hljs-keyword">const</span> Employee = <span class="hljs-keyword">new</span> Model(<span class="hljs-string">'employee'</span>);
+     <span class="hljs-keyword">const</span> employee = <span class="hljs-keyword">await</span> Employee.create({
+         <span class="hljs-attr">email</span>: <span class="hljs-string">'employee@company.com'</span>
+     });
+     <span class="hljs-built_in">console</span>.log(employee.get()); <span class="hljs-comment">// employee@company.com</span>
+     employee.update({
+         <span class="hljs-attr">email</span>: <span class="hljs-string">'manager@company.com'</span>
+     });
+     <span class="hljs-built_in">console</span>.log(employee.get()); <span class="hljs-comment">// manager@company.com</span>
+ }</code></pre></div></div></div><div style="margin-bottom:52px;" data-radium="true"><h3 data-radium="true"><a class="anchor" name="modelinstanceupdate"></a>ModelInstance.prototype.update</h3><pre><code>update(set: any, props: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set">set</a>)</code></pre><div style="margin-top:13px;margin-bottom:13px;" data-radium="true"></div><div data-radium="true"><h4>Parameters</h4><ol style="list-style:none;margin-left:0;padding-left:0;" data-radium="true"><div data-radium="true"><li style="padding-bottom:13px;" data-radium="true"><code>set: any</code>:  <div style="display:inline-block;" data-radium="true"></div></li></div><div data-radium="true"><li style="padding-bottom:13px;" data-radium="true"><code>props: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set">set</a></code>:  <div style="display:inline-block;" data-radium="true">set values object
+</div></li></div></ol></div><div data-radium="true"><div data-radium="true"><h4>Example</h4><pre><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateEmployee</span>(<span class="hljs-params">id, set</span>) </span>{
+     <span class="hljs-keyword">const</span> Employee = <span class="hljs-keyword">new</span> Model(<span class="hljs-string">'employee'</span>);
+     <span class="hljs-keyword">const</span> employee = <span class="hljs-keyword">await</span> Employee.find(id);
+     employee.update(set);
+ }</code></pre></div></div></div><div style="margin-bottom:52px;" data-radium="true"><h3 data-radium="true"><a class="anchor" name="modelinstancedelete"></a>ModelInstance.prototype.delete</h3><pre><code>delete()</code></pre><div style="margin-top:13px;margin-bottom:13px;" data-radium="true"></div><div data-radium="true"><div data-radium="true"><h4>Example</h4><pre><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deleteEmployee</span>(<span class="hljs-params">id</span>) </span>{
+     <span class="hljs-keyword">const</span> Employee = <span class="hljs-keyword">new</span> Model(<span class="hljs-string">'employee'</span>);
+     <span class="hljs-keyword">const</span> employee = <span class="hljs-keyword">await</span> Employee.find(id);
+     employee.delete();
+ }</code></pre></div></div></div><div style="margin-bottom:52px;" data-radium="true"><h3 data-radium="true"><a class="anchor" name="modelinstancerestore"></a>ModelInstance.prototype.restore</h3><pre><code>restore()</code></pre><div style="margin-top:13px;margin-bottom:13px;" data-radium="true"></div><div data-radium="true"><div data-radium="true"><h4>Example</h4><pre><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deleteEmployee</span>(<span class="hljs-params">id</span>) </span>{
+     <span class="hljs-keyword">const</span> Employee = <span class="hljs-keyword">new</span> Model(<span class="hljs-string">'employee'</span>);
+     <span class="hljs-keyword">const</span> employee = <span class="hljs-keyword">await</span> Employee.find(id);
+     employee.restore();
+ }</code></pre></div></div></div></div></div></div></div><div style="clear:both;" data-radium="true"></div></div><div style="clear:both;" data-radium="true"></div></div><style>@media (min-width: 768px) and (max-width: 991px){ .rmq-87b609c0{width: 750px !important;}}
+@media (min-width: 992px) and (max-width: 1199px){ .rmq-159a7c96{width: 970px !important;}}
+@media (min-width: 1200px){ .rmq-27601239{width: 1170px !important;}}
+@media (min-width: 480px) and (max-width: 767px){ .rmq-aa1729d5{float: left !important;}}
+@media (min-width: 768px) and (max-width: 991px){ .rmq-a22eaf97{float: left !important;}}
+@media (min-width: 992px) and (max-width: 1199px){ .rmq-1918856d{float: left !important;}}
+@media (min-width: 1200px){ .rmq-6156e77b{float: left !important;}}
+@media (min-width: 480px) and (max-width: 767px) { .rmq-21ab0466{width: 50.00000% !important;}}
+@media (min-width: 768px) and (max-width: 991px) { .rmq-a01b93a4{width: 50.00000% !important;}}
+@media (min-width: 992px) and (max-width: 1199px) { .rmq-d226cb7e{width: 50.00000% !important;}}
+@media (min-width: 1200px) { .rmq-5cc71c8{width: 50.00000% !important;}}
+@media (min-width: 480px) and (max-width: 767px) { .rmq-77267d84{width: 25.00000% !important;}}
+@media (min-width: 768px) and (max-width: 991px) { .rmq-5c0c1446{width: 25.00000% !important;}}
+@media (min-width: 992px) and (max-width: 1199px) { .rmq-4605701c{width: 25.00000% !important;}}
+@media (min-width: 1200px) { .rmq-34ee8e6a{width: 25.00000% !important;}}
+@media (min-width: 480px) and (max-width: 767px) { .rmq-5c4c5b38{width: 8.33333% !important;}}
+@media (max-width: 479px){ .rmq-35757987{display: none !important;}}
+@media (min-width: 480px) and (max-width: 767px)  { .rmq-f09e82ae{display: none !important;}}
+@media (min-width: 480px) and (max-width: 767px) { .rmq-89bb2272{width: 100.00000% !important;}}
+@media (min-width: 768px) and (max-width: 991px) { .rmq-2d0e68c6{width: 66.66667% !important;}}
+@media (min-width: 992px) and (max-width: 1199px) { .rmq-3752549c{width: 66.66667% !important;}}
+@media (min-width: 1200px) { .rmq-3b9282ea{width: 66.66667% !important;}}
+@media (min-width: 768px) and (max-width: 991px)  { .rmq-4d29a8df{left: 33.33333% !important;}}
+@media (min-width: 992px) and (max-width: 1199px)  { .rmq-ea7683a5{left: 33.33333% !important;}}
+@media (min-width: 1200px)  { .rmq-ad95cc33{left: 33.33333% !important;}}</style></div></main></body></html>

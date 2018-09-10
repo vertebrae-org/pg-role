@@ -4,7 +4,7 @@ opinionated pg abstraction
 
 ### Opinionated?
 
-This package require you to create models with these columns:
+This package requires you to create models with these columns:
 
 -   id          SERIAL
 -   created_at  TIMESTAMP
@@ -18,31 +18,59 @@ Methods select, insert, update, remove, and restore use these columns to keep tr
 
 By default, the select function will filter out any rows with a deleted_at timestamp. If you do want to see deleted rows add 'deleted: true' to the select options object.
 
-### Roles?
+created_by, updated_by, and deleted_by are optional, and are only added if 'userId' is present within a methods options parameter. 
+
+### Usage
+
+Of the various methods included in this libary, often times you will only need the '[Module](#modelinstance)' class, as it is an abstraction of all the other methods.  You may not need multiple connection pools ether, in this case the default connection values are used.
+Use cases for calling select, insert, update, remove, restore directly include functions that dynamically set the model and pool when invoked.
+
+### Roles
 
 Another opinionated feature of this package is role pools configured by enviornment variables.  The module uses dotenv to populate env settings when you include a .env file in your project root folder.  The default pool uses env vars:
 
-* 'PGHOST',
-* 'PGPORT',
-* 'PGDATABASE',
-* 'PGUSER',
-* 'PGPASSWORD'
+-   'PGHOST',
+-   'PGPORT',
+-   'PGDATABASE',
+-   'PGUSER',
+-   'PGPASSWORD'
 
-Specifying one or more pool names within the db.conect method will connect multiple pools.  The connection will expect vars:
+Specifying one or more pool names within the db.conect method will connect multiple pools.  The connection will expect env vars:
 
-* 'PG_${pool}_HOST',
-* 'PG_${pool}_PORT',
-* 'PG_${pool}_DATABASE',
-* 'PG_${pool}_USER',
-* 'PG_${pool}_PASSWORD'
+-   'PG\_${pool}\_HOST',
+-   'PG\_${pool}\_PORT',
+-   'PG\_${pool}\_DATABASE',
+-   'PG\_${pool}\_USER',
+-   'PG\_${pool}\_PASSWORD'
 
 ### Async
 
 This library is built with promises and expects you to await method results.  While it is a good idea to connect your pools when the app starts up, you don't have to.  If you call any method without specifying a pool connection to use, it will use the default pool.  If the default or specified connection pool has not yet been connected, it will wait until it connects, then call the method.  Pools are cached in the db.pools object.
 
-## Install
+### Model
 
-    npm install --save pg-role
+You can use the Model class to abstract all CRUD methods into a model instance.  This can simplify reasoning about your database operations.
+
+## Contributing
+
+-   To run the dev environment, execute 'docker-compose up -d' or 'docker.compose up -d' from project directory, depending on how you've installed docker-compose.  This starts up a postgres instance on localhost:5432 and an 'adminer' process running on localhost:8000.  You can use adminer as a web based database administration tool while developing.
+-   Any proposed new feature will need to have a test accomnpanying the pull request.  All test must pass travis before accepted and merged.
+
+```javascript
+async function example () {
+    const Employee = new Model('employees');
+    const employee = await Employee.create({
+        email: 'employee@comany.com'
+    });
+    await employee.update({
+        set: {
+            email: 'manager@company.com'
+        }
+    });
+    await employee.delete();
+    await employee.restore();
+});
+```
 
 ## Methods
 
@@ -50,29 +78,87 @@ This library is built with promises and expects you to await method results.  Wh
 
 #### Table of Contents
 
--   [select](#select)
+-   [Query](#query)
     -   [Parameters](#parameters)
     -   [Examples](#examples)
--   [insert](#insert)
+-   [Select](#select)
     -   [Parameters](#parameters-1)
     -   [Examples](#examples-1)
--   [update](#update)
+-   [Insert](#insert)
     -   [Parameters](#parameters-2)
     -   [Examples](#examples-2)
--   [remove](#remove)
+-   [Update](#update)
     -   [Parameters](#parameters-3)
     -   [Examples](#examples-3)
--   [restore](#restore)
+-   [Remove](#remove)
     -   [Parameters](#parameters-4)
     -   [Examples](#examples-4)
--   [query](#query)
+-   [Restore](#restore)
     -   [Parameters](#parameters-5)
     -   [Examples](#examples-5)
--   [def](#def)
+-   [Model](#model)
     -   [Parameters](#parameters-6)
-    -   [Examples](#examples-6)
+    -   [create](#create)
+        -   [Parameters](#parameters-7)
+        -   [Examples](#examples-6)
+    -   [select](#select-1)
+        -   [Parameters](#parameters-8)
+        -   [Examples](#examples-7)
+    -   [find](#find)
+        -   [Parameters](#parameters-9)
+        -   [Examples](#examples-8)
+-   [ModelInstance](#modelinstance)
+    -   [Parameters](#parameters-10)
+    -   [Examples](#examples-9)
+    -   [get](#get)
+        -   [Parameters](#parameters-11)
+        -   [Examples](#examples-10)
+    -   [update](#update-1)
+        -   [Parameters](#parameters-12)
+        -   [Examples](#examples-11)
+    -   [delete](#delete)
+        -   [Examples](#examples-12)
+    -   [restore](#restore-1)
+        -   [Examples](#examples-13)
 
-### select
+### Query
+
+```javascript
+const {query} = require('pg-role');
+```
+
+#### Parameters
+
+-   `options` **([object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))** 
+    -   `options.pool` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** pool connection name (optional, default `'default'`)
+    -   `options.text` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** sql string
+
+#### Examples
+
+```javascript
+async function getEmployeesByDomain (domain) {
+     return await query(`
+         select * from employees
+         where email like '%@${domain}'
+         limit 1000;
+     `);
+ }
+```
+
+```javascript
+async function getEmployeesByDomain (domain) {
+     return await query({
+         pool: 'admin',
+         text: `
+             select * from employees
+             where email like '%@${domain}'
+             limit 1000;
+         `
+     });
+ }
+```
+
+### Select
 
 ```javascript
 const {select} = require('pg-role');
@@ -137,7 +223,7 @@ async function getAllEmployeesByRole (role) {
  }
 ```
 
-### insert
+### Insert
 
 ```javascript
 const {insert} = require('pg-role');
@@ -162,7 +248,7 @@ async function newEmployee (set) {
  }
 ```
 
-### update
+### Update
 
 ```javascript
 const {update} = require('pg-role');
@@ -190,7 +276,7 @@ async function updateEmployee (id, set) {
  }
 ```
 
-### remove
+### Remove
 
 ```javascript
 const {remove} = require('pg-role');
@@ -198,7 +284,7 @@ const {remove} = require('pg-role');
 
 #### Parameters
 
--   `options` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
+-   `options` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
     -   `options.pool` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** pool connection name (optional, default `'default'`)
     -   `options.schema` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** database schema (optional, default `'public'`)
     -   `options.model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** table to select from
@@ -216,7 +302,7 @@ async function removeEmployee (id) {
  }
 ```
 
-### restore
+### Restore
 
 ```javascript
 const {restore} = require('pg-role');
@@ -224,7 +310,7 @@ const {restore} = require('pg-role');
 
 #### Parameters
 
--   `options` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
+-   `options` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
     -   `options.pool` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** pool connection name (optional, default `'default'`)
     -   `options.schema` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** database schema (optional, default `'public'`)
     -   `options.model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** table to select from
@@ -242,65 +328,170 @@ async function restoreEmployee (id) {
  }
 ```
 
-### query
+### Model
 
 ```javascript
-const {query} = require('pg-role');
+const {Model} = require('pg-role');
 ```
 
 #### Parameters
 
--   `options` **([object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))** 
-    -   `options.pool` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** pool connection name (optional, default `'default'`)
-    -   `options.text` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** sql string
+-   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model name
+-   `props` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** configuration object
 
-#### Examples
+#### create
+
+##### Parameters
+
+-   `set` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** set values object
+
+##### Examples
 
 ```javascript
-async function getEmployeesByDomain (domain) {
-     return await query(`
-         select * from employees
-         where email like '%@${domain}'
-         limit 1000;
-     `);
+async function createEmployee (email) {
+     const employee = await Employee.create({
+         email
+     });
+     console.log(employee.get()));
  }
 ```
 
+Returns **[ModelInstance](#modelinstance)** 
+
+#### select
+
+##### Parameters
+
+-   `opts` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** options object
+
+##### Examples
+
 ```javascript
-async function getEmployeesByDomain (domain) {
-     return await query({
-         pool: 'admin',
-         text: `
-             select * from employees
-             where email like '%@${domain}'
-             limit 1000;
-         `
+async function findEmployees() {
+     const employee = await Employee.select({
+         where: {
+             $like: {
+                 email: '%@comapany.com'
+             }
+         }
      });
  }
 ```
 
-### def
+Returns **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** selectObject
+
+#### find
+
+##### Parameters
+
+-   `where` **([object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))** id or where object
+-   `options` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** options object
+
+##### Examples
 
 ```javascript
-const {def} = require('pg-role');
+async function createEmployee (email) {
+     const Employee = new Model('employees');
+     const employee = await Employee.find({
+         email: testUserB
+     });
+     console.log(employee.get()));
+ }
 ```
+
+Returns **[ModelInstance](#modelinstance)** 
+
+### ModelInstance
+
+model instance created by Model.create('model_name')
 
 #### Parameters
 
--   `options` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-    -   `options.pool` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** pool connection name (optional, default `'default'`)
-    -   `options.schema` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** database schema (optional, default `'public'`)
-    -   `options.database` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** database name
-    -   `options.model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** table to select from
+-   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `props` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `data`  
 
 #### Examples
 
 ```javascript
-async function getTableDef (database, model) {
-     return await def({
-         database,
-         model
+async function messWithEmployee (email) {
+     const Employee = new Model('employee');
+     const instance = await Employee.create({
+         email: 'some.employee@company.com',
+         position: 'employee'
      });
+     console.log(instance.get()); // {id: 45, email: 'employee@company.com', ...}
+     await instance.update({
+         position: 'manager'
+     });
+     console.log(instance.get()); // {id: 45, email: 'manager@company.com, ...}
+     await instance.delete();
+     console.log(instance.get()); // {id: 45, email: 'manager@company.com, deleted_at: '2018-09-11T04:44:36.725Z', ...}
+     await instance.restore();
+     console.log(instance.get()); // {id: 45, email: 'manager@company.com, ...}
+ }
+```
+
+#### get
+
+##### Parameters
+
+-   `prop` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** property to retrieve, if not specified all props are returned.
+
+##### Examples
+
+```javascript
+async function testGet() {
+     const Employee = new Model('employee');
+     const employee = await Employee.create({
+         email: 'employee@company.com'
+     });
+     console.log(employee.get()); // employee@company.com
+     employee.update({
+         email: 'manager@company.com'
+     });
+     console.log(employee.get()); // manager@company.com
+ }
+```
+
+#### update
+
+##### Parameters
+
+-   `set`  
+-   `props` **[set](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set)** set values object
+
+##### Examples
+
+```javascript
+async function updateEmployee(id, set) {
+     const Employee = new Model('employee');
+     const employee = await Employee.find(id);
+     employee.update(set);
+ }
+```
+
+#### delete
+
+##### Examples
+
+```javascript
+async function deleteEmployee(id) {
+     const Employee = new Model('employee');
+     const employee = await Employee.find(id);
+     employee.delete();
+ }
+```
+
+#### restore
+
+##### Examples
+
+```javascript
+async function deleteEmployee(id) {
+     const Employee = new Model('employee');
+     const employee = await Employee.find(id);
+     employee.restore();
  }
 ```
 
