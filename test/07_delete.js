@@ -19,20 +19,22 @@ describe('DELETE', function () {
                 deleted_at TIMESTAMP,
                 deleted_by INT
             );
-            INSERT INTO employees (email, deleted_at) values
+            INSERT INTO employees (email) values
                 ('${testUserA}');
         `);
     });
 
     it('should delete employee A', async function () {
-        await remove({
+        const a = await remove({
             model: 'employees',
             where: { email: testUserA }
         });
         const {rows} = await query(`
-            select email from employees where email = '${testUserA}' and deleted_at is null;
+            select email from employees where email = '${testUserA}';
         `);
-        assert.equal(rows.length, 0);
+        assert.equal(rows.length, 1);
+        assert.equal(testUserA, a[0].email);
+        assert.notEqual(null, a[0].deleted_at);
     });
 
 });

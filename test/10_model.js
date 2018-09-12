@@ -11,8 +11,20 @@ describe('MODEL', function () {
     beforeEach(async function () {
         await query(`
             DROP SCHEMA IF EXISTS public cascade;
+            DROP SCHEMA IF EXISTS test cascade;
             CREATE SCHEMA public;
+            CREATE SCHEMA test;
             CREATE TABLE employees (
+                id SERIAL,
+                email VARCHAR UNIQUE NOT NULL,
+                created_at TIMESTAMP DEFAULT NOW(),
+                created_by INT,
+                updated_at TIMESTAMP,
+                updated_by INT,
+                deleted_at TIMESTAMP,
+                deleted_by INT
+            );
+            CREATE TABLE test.employees (
                 id SERIAL,
                 email VARCHAR UNIQUE NOT NULL,
                 created_at TIMESTAMP DEFAULT NOW(),
@@ -140,6 +152,20 @@ describe('MODEL INSTANCE', function () {
 
     it('should restore an instance of employee', async function () {
         const Employee = new Model('employees');
+        const employee = await Employee.create({
+            email: testUserA
+        });
+        assert.equal(testUserA, await employee.get('email'));
+        await employee.delete();
+        assert.notEqual(null, await employee.get('deleted_at'));
+        await employee.restore();
+        assert.equal(null, await employee.get('deleted_at'));
+    });
+
+    it('should restore an instance of test.employee', async function () {
+        const Employee = new Model('employees', {
+            pool: 'test'
+        });
         const employee = await Employee.create({
             email: testUserA
         });

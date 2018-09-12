@@ -33,8 +33,8 @@ describe('RESTORE', function () {
         const {rows} = await query(`
             select email from employees where email = '${testUserA}' and deleted_at is null;
         `);
-        assert.equal(testUserA, a.email);
-        assert.equal(null, a.deleted_at);
+        assert.equal(testUserA, a[0].email);
+        assert.equal(null, a[0].deleted_at);
         assert.equal(rows.length, 1);
     });
 

@@ -37,7 +37,7 @@ describe('UPDATE', function () {
                 email: testUserB
             }
         });
-        assert.equal(testUserB, a.email);
+        assert.equal(testUserB, a[0].email);
         const {rows} = await query(`
             select email from employees where email = '${testUserB}';
         `);

@@ -8,6 +8,5 @@ module.exports.insert = require('./lib/insert');
 module.exports.update = require('./lib/update');
 module.exports.remove = require('./lib/remove');
 module.exports.restore = require('./lib/restore');
-module.exports.where = require('./lib/where');
 module.exports.def = require('./lib/def');
 module.exports.Model = require('./lib/Model');
