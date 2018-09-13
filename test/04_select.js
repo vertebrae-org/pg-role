@@ -47,6 +47,31 @@ describe('SELECT', function () {
         assert.equal(testUserA, rows[0] && rows[0].email);
     });
 
+    it('should select one column from employee by id', async function () {
+        const {rows} = await select({
+            columns: 'email',
+            model: 'employees',
+            id: 1
+        });
+        const keys = Object.keys(rows[0]);
+        assert.equal(keys.length, 1);
+        assert.equal('email', rows[0] && keys[0]);
+        assert.equal(testUserA, rows[0] && rows[0].email);
+    });
+
+    it('should select multiple columns from employee by id', async function () {
+        const {rows} = await select({
+            columns: ['id', 'email'],
+            model: 'employees',
+            id: 1
+        });
+        const keys = Object.keys(rows[0]);
+        assert.equal('id', rows[0] && keys[0]);
+        assert.equal('email', rows[0] && keys[1]);
+        assert.equal(keys.length, 2);
+        assert.equal(testUserA, rows[0] && rows[0].email);
+    });
+
     it('should select employee by email', async function () {
         const {rows} = await select({
             model: 'employees',
