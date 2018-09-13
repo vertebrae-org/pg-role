@@ -1,6 +1,6 @@
 {
   "name": "pg-role",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "opinionated pg abstraction",
   "main": "index.js",
   "directories": {
