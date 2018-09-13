@@ -73,7 +73,7 @@ describe('MODEL', function () {
         assert.equal(testUserB, rows[0].email);
     });
 
-    it('should get employee instance by id', async function () {
+    it('should find employee instance by id', async function () {
         await query(`
             INSERT INTO employees (email) values
                 ('${testUserA}'),
@@ -85,7 +85,7 @@ describe('MODEL', function () {
         assert.equal(testUserC, employee.get('email'));
     });
 
-    it('should get employee instance by email', async function () {
+    it('should find employee instance by email', async function () {
         await query(`
             INSERT INTO employees (email) values
                 ('${testUserA}'),
