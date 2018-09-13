@@ -72,6 +72,32 @@ describe('SELECT', function () {
         assert.equal(testUserA, rows[0] && rows[0].email);
     });
 
+    it('should select multiple employees where id in array', async function () {
+        const {rows} = await select({
+            model: 'employees',
+            where: {
+                $in: {
+                    id: [2,3]
+                }
+            }
+        });
+        assert.equal(testUserB, rows[0] && rows[0].email);
+        assert.equal(testUserC, rows[1] && rows[1].email);
+    });
+
+    it('should select multiple employees where email in array', async function () {
+        const {rows} = await select({
+            model: 'employees',
+            where: {
+                $in: {
+                    email: [testUserB, testUserC]
+                }
+            }
+        });
+        assert.equal(testUserB, rows[0] && rows[0].email);
+        assert.equal(testUserC, rows[1] && rows[1].email);
+    });
+
     it('should select employee by email', async function () {
         const {rows} = await select({
             model: 'employees',
